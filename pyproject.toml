@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "SimpleCel"
+version = "0.1.0"
+description = "Excel workbook with no formula conversion, but with markdown/HTML support."
+authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = ">=3"
+pyexcel = "^0.5.8"
+pyexcel-export = "^0.3.0"
+pyexcel-handsontable = "^0.0.1"
+flask = "^1.0"
+flask-restful = "^0.3.6"
+pyqt5 = "^5.11"
+appdirs = "^1.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.6"
