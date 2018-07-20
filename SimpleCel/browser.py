@@ -48,9 +48,7 @@ class WebPage(QWebEnginePage):
 
 
 class MainWindow(QMainWindow):
-    def keyPressEvent(self, e):
-        if e.key() == Qt.Key_Escape:
-            self.close()
+    pass
 
 
 def init_gui(application, port=5000, width=300, height=400,
@@ -89,10 +87,10 @@ def init_gui(application, port=5000, width=300, height=400,
 
     options = QFileDialog.Options()
     filename = None
-    while not filename:
+    if not filename:
         file_formats = [
             "Supported formats (*.pyexcel.json *.json *.xlsx *.yaml)",
-            "ALl files (*.*)"
+            "All files (*.*)"
         ]
         filename, _ = QFileDialog.getOpenFileName(window,
                                                   "Open file", root,
