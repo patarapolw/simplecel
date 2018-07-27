@@ -6,6 +6,6 @@ if __name__ == '__main__':
     app.run(
         host='localhost',
         # host='192.168.1.13',
-        port=5000,
+        port=7500,
         debug=True
     )

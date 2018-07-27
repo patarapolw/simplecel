@@ -13,6 +13,7 @@ pyexcel-handsontable = "^0.0.1"
 flask = "^1.0"
 flask-restful = "^0.3.6"
 pyqt5 = "^5.11"
+pyqt5-sip = "^4.19"
 appdirs = "^1.4"
 
 [tool.poetry.dev-dependencies]
