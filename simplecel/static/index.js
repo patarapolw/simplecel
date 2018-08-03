@@ -33,6 +33,11 @@ Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>
   item.addEventListener('click', ()=>{
     if(hot !== undefined) hot.destroy();
     loadExcelSheet(index);
+
+    Array.from(document.getElementsByClassName('tab-links')).forEach((item2, index2)=>{
+      item2.className = item2.className.replace(' active', '');
+    });
+    item.className += ' active';
   });
 
   if(index === 0) item.click();
