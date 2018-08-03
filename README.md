@@ -1,5 +1,10 @@
 # Simplecel
 
+[![Build Status](https://travis-ci.org/patarapolw/simplecel.svg?branch=master)](https://travis-ci.org/patarapolw/simplecel)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/simplecel.svg)](https://pypi.python.org/pypi/simplecel/)
+[![PyPI license](https://img.shields.io/pypi/l/simplecel.svg)](https://pypi.python.org/pypi/simplecel/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/simplecel.svg)](https://pypi.python.org/pypi/simplecel/)
+
 Excel workbook with no formula conversion, but with markdown/HTML support.
 
 ## Installation
