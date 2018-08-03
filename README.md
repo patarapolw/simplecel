@@ -9,6 +9,8 @@ pip install simplecel
 pip install pyexcel-xls  # Or any other packages defined in pyexcel GitHub
 ```
 
+For what you need to install other than `simplecel`, please see https://github.com/pyexcel/pyexcel#available-plugins
+
 ## Usage
 
 ```commandline
