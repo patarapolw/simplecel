@@ -1,11 +1,25 @@
-from .browser import init_gui
+import os
+import click
+
 from . import app
 
 
-def main():
-    init_gui(app, port=0, width=800, height=600,
-             window_title="SimpleCel")
+@click.command()
+@click.argument('filename')
+@click.option('--meta', default='', help='Please input the path to META json, as defined in pyexcel-export.')
+@click.option('--host', default='localhost')
+@click.option('--port', default=7500)
+@click.option('--debug', is_flag=True)
+def load_excel(filename, meta, host, port, debug):
+    os.environ['FILENAME'] = filename
+    os.environ['META'] = meta
+
+    app.run(
+        host=host,
+        port=port,
+        debug=debug
+    )
 
 
 if __name__ == '__main__':
-    main()
+    load_excel()

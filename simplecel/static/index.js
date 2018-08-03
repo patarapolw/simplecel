@@ -1,16 +1,14 @@
-const img_regex = /(?:(?=^)|(?=\s).|^)([^\s<>"\']+\.(?:png|jpg|jpeg|gif))/g;
 const markdownConverter = new showdown.Converter;
 
 (function(Handsontable){
   function customRenderer(hotInstance, td, row, column, prop, value, cellProperties) {
+    const img_regex = /(?:(?=^)|(?=\s).|^)([^\s<>"\']+\.(?:png|jpg|jpeg|gif))/g;
+
     let text = Handsontable.helper.stringify(value);
     text = text.replace(/\n+/g, "\n\n");
-//    text = text.replace('\n', "<br />");
-    text = text.replace(img_regex,
-      "<img src='$1' width=200 />");
+    text = text.replace(img_regex, "<img src='$1' width=200 />");
 
     td.innerHTML = markdownConverter.makeHtml(text);
-//    td.innerHTML = text;
 
     return td;
   }
@@ -22,38 +20,39 @@ const markdownConverter = new showdown.Converter;
 
 const sheetNames = Object.keys(data);
 let hot;
+let innerHTML = [];
 
-$(document).ready(function() {
-  renderTabs(sheetNames);
-  loadExcelSheet(0);
+sheetNames.forEach((item, index)=>{
+  innerHTML.push('<button class="tab-links">' + item + '</button>');
 });
 
-function renderTabs(sheetNames){
-  const $tabArea = $('#tab-area');
-  for(let i=0; i<sheetNames.length; i++){
-    const $li = $('<li class="nav-item"></li>');
-    $li.append('<a class="nav-link" href="#">' + sheetNames[i] + '</a>');
-    $li.click(function(){
-      hot.destroy();
-      loadExcelSheet(i);
-    })
-    $tabArea.append($li);
-  }
-  $tabArea.find('li:first-child').addClass('active');
-}
+const tabArea = document.getElementById('tab-area');
+tabArea.innerHTML = innerHTML.join('');
+
+Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>{
+  item.addEventListener('click', ()=>{
+    if(hot !== undefined) hot.destroy();
+    loadExcelSheet(index);
+  });
+
+  if(index === 0) item.click();
+});
+
 
 function loadExcelSheet(sheetNumber) {
-  $('#handsontable-area')
-    .height($(window).height() - $('#tab-area').height())
-    .width($(window).width());
+  const container = document.getElementById('handsontable-container');
+  const dimensions = {
+    height: (window.innerHeight - document.getElementById('tab-area').offsetHeight) + 'px',
+    width: window.innerWidth + 'px'
+  };
+  Object.assign(container.style, dimensions);
 
-  const container = document.getElementById('handsontable-area');
   let columnFormatter = [];
-  for(let i=0; i<data[sheetNames[sheetNumber]][0].length; i++){
-    columnFormatter.push({data: i, renderer: "markdownRenderer"});
-  }
+  data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
+    columnFormatter.push({data: index, renderer: "markdownRenderer"});
+  });
 
-  hot = new Handsontable(container, {
+  hot = new Handsontable(document.getElementById('handsontable-area'), {
     data: data[sheetNames[sheetNumber]].slice(1),
     rowHeaders: false,
     colHeaders: data[sheetNames[sheetNumber]][0],
@@ -62,19 +61,19 @@ function loadExcelSheet(sheetNumber) {
     filters: true,
     dropdownMenu: true,
     contextMenu: true,
-    modifyColWidth: function(width, col){
+    modifyColWidth: (width, col)=>{
       if(width > 200) return 200;
     },
-    manualRowResize: true,
-    afterChange: function(change, source){
-      if(source === 'loadData'){
-        return;
-      }
-      // console.log(change);
-      // if (!autosave.checked) {
-      //   return;
-      // }
-      // $.post('/api/save/', {data: change});
-    }
+    manualRowResize: true
+  });
+
+  colWidths = [];
+  [...Array(hot.countCols()).keys()].map(i => {
+    colWidths.push(hot.getColWidth(i));
+  });
+
+  hot.updateSettings({
+    modifyColWidth: ()=>{},
+    colWidths: colWidths
   });
 }

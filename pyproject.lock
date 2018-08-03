@@ -1,22 +1,4 @@
 [[package]]
-category = "main"
-description = "A library for parsing ISO 8601 strings."
-name = "aniso8601"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "3.0.2"
-
-[[package]]
-category = "main"
-description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
-name = "appdirs"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "1.4.3"
-
-[[package]]
 category = "dev"
 description = "Atomic file writes."
 name = "atomicwrites"
@@ -57,15 +39,6 @@ platform = "win32"
 
 [[package]]
 category = "main"
-description = "An implementation of lxml.xmlfile for the standard library"
-name = "et-xmlfile"
-optional = false
-platform = "UNKNOWN"
-python-versions = "*"
-version = "1.0.1"
-
-[[package]]
-category = "main"
 description = "A simple framework for building complex web applications."
 name = "flask"
 optional = false
@@ -81,36 +54,12 @@ itsdangerous = ">=0.24"
 
 [[package]]
 category = "main"
-description = "Simple framework for creating REST APIs"
-name = "flask-restful"
-optional = false
-platform = "any"
-python-versions = "*"
-version = "0.3.6"
-
-[package.dependencies]
-Flask = ">=0.8"
-aniso8601 = ">=0.82"
-pytz = "*"
-six = ">=1.3.0"
-
-[[package]]
-category = "main"
 description = "Various helpers to pass trusted data to untrusted environments and back."
 name = "itsdangerous"
 optional = false
 platform = "UNKNOWN"
 python-versions = "*"
 version = "0.24"
-
-[[package]]
-category = "main"
-description = "Julian dates from proleptic Gregorian and Julian calendars."
-name = "jdcal"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "1.4"
 
 [[package]]
 category = "main"
@@ -149,35 +98,29 @@ name = "more-itertools"
 optional = false
 platform = "*"
 python-versions = "*"
-version = "4.2.0"
+version = "4.3.0"
 
 [package.dependencies]
 six = ">=1.0.0,<2.0.0"
 
 [[package]]
-category = "main"
-description = "A Python library to read/write Excel 2010 xlsx/xlsm files"
-name = "openpyxl"
-optional = false
-platform = "*"
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "2.5.4"
-
-[package.dependencies]
-et_xmlfile = "*"
-jdcal = "*"
-
-[[package]]
-category = "main"
-description = "Ordered YAML: drop-in replacement for PyYAML which preserves dict ordering"
-name = "oyaml"
+category = "dev"
+description = "Object-oriented filesystem paths"
+name = "pathlib2"
 optional = false
 platform = "*"
 python-versions = "*"
-version = "0.5"
+version = "2.3.2"
 
 [package.dependencies]
-pyyaml = "*"
+six = "*"
+
+[package.dependencies.scandir]
+python = "<3.5"
+version = "*"
+
+[package.requirements]
+python = "<3.6"
 
 [[package]]
 category = "dev"
@@ -186,7 +129,7 @@ name = "pluggy"
 optional = false
 platform = "unix"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "0.6.0"
+version = "0.7.1"
 
 [[package]]
 category = "dev"
@@ -213,34 +156,6 @@ texttable = ">=0.8.1"
 
 [[package]]
 category = "main"
-description = "Keep good formatting when exporting to *.xlsx, *.yaml and *.json and when updating data."
-name = "pyexcel-export"
-optional = false
-platform = "*"
-python-versions = ">=3.5"
-version = "0.3.1"
-
-[package.dependencies]
-openpyxl = ">=2.5,<3.0"
-oyaml = ">=0.5.0,<0.6.0"
-pyexcel = ">=0.5.8,<0.6.0"
-pyexcel-xlsx = ">=0.5.6,<0.6.0"
-
-[[package]]
-category = "main"
-description = "A pyexcel plugin to render data as handsontable in html pages"
-name = "pyexcel-handsontable"
-optional = false
-platform = "UNKNOWN"
-python-versions = "*"
-version = "0.0.1"
-
-[package.dependencies]
-jinja2 = "*"
-pyexcel = ">=0.5.0"
-
-[[package]]
-category = "main"
 description = "A python library to read and write structured data in csv, zipped csvformat and to/from databases"
 name = "pyexcel-io"
 optional = false
@@ -253,34 +168,17 @@ lml = "0.0.1"
 
 [[package]]
 category = "main"
-description = "A wrapper library to read, manipulate and write data in xlsx and xlsmformat"
-name = "pyexcel-xlsx"
+description = "A wrapper library to read, manipulate and write data in xls format. Itreads xlsx and xlsm format"
+name = "pyexcel-xls"
 optional = false
 platform = "*"
 python-versions = "*"
-version = "0.5.6"
+version = "0.5.7"
 
 [package.dependencies]
-openpyxl = ">=2.5.0"
 pyexcel-io = ">=0.5.3"
-
-[[package]]
-category = "main"
-description = "Python bindings for the Qt cross platform UI and application toolkit"
-name = "pyqt5"
-optional = false
-platform = "UNIX"
-python-versions = "*"
-version = "5.11.2"
-
-[[package]]
-category = "main"
-description = "Python extension module support for PyQt5"
-name = "pyqt5-sip"
-optional = false
-platform = "UNIX"
-python-versions = "*"
-version = "4.19.12"
+xlrd = "*"
+xlwt = "*"
 
 [[package]]
 category = "dev"
@@ -289,13 +187,13 @@ name = "pytest"
 optional = false
 platform = "unix"
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "3.6.3"
+version = "3.7.1"
 
 [package.dependencies]
 atomicwrites = ">=1.0"
 attrs = ">=17.4.0"
 more-itertools = ">=4.0.0"
-pluggy = ">=0.5,<0.7"
+pluggy = ">=0.7"
 py = ">=1.5.0"
 setuptools = "*"
 six = ">=1.10.0"
@@ -304,26 +202,33 @@ six = ">=1.10.0"
 platform = "win32"
 version = "*"
 
-[[package]]
-category = "main"
-description = "World timezone definitions, modern and historical"
-name = "pytz"
-optional = false
-platform = "Independent"
-python-versions = "*"
-version = "2018.5"
+[package.dependencies.pathlib2]
+python = "<3.6"
+version = ">=2.2.0"
 
 [[package]]
 category = "main"
-description = "YAML parser and emitter for Python"
-name = "pyyaml"
+description = "Add .env support to your django/flask apps in development and deployments"
+name = "python-dotenv"
 optional = false
-platform = "Any"
+platform = "*"
 python-versions = "*"
-version = "3.13"
+version = "0.9.0"
 
 [[package]]
-category = "main"
+category = "dev"
+description = "scandir, a better directory iterator and faster os.walk()"
+name = "scandir"
+optional = false
+platform = "*"
+python-versions = "*"
+version = "1.8"
+
+[package.requirements]
+python = "<3.5"
+
+[[package]]
+category = "dev"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -349,41 +254,51 @@ platform = "any"
 python-versions = "*"
 version = "0.14.1"
 
+[[package]]
+category = "main"
+description = "Library for developers to extract data from Microsoft Excel (tm) spreadsheet files"
+name = "xlrd"
+optional = false
+platform = "Any platform -- don't need Windows"
+python-versions = "*"
+version = "1.1.0"
+
+[[package]]
+category = "main"
+description = "Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+"
+name = "xlwt"
+optional = false
+platform = "Platform Independent"
+python-versions = "*"
+version = "1.3.0"
+
 [metadata]
-content-hash = "3539ce614695eb450fc889b829c93065bf25e5ee719f077bc98cf6c1b1fa4d56"
+content-hash = "0b8f10f607d58bafec2ec9ec34323c42a93edc634183b65bc3cc6f38b64b567b"
 platform = "*"
 python-versions = ">=3"
 
 [metadata.hashes]
-aniso8601 = ["7849749cf00ae0680ad2bdfe4419c7a662bef19c03691a19e008c8b9a5267802", "94f90871fcd314a458a3d4eca1c84448efbd200e86f55fe4c733c7a40149ef50"]
-appdirs = ["9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92", "d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"]
 atomicwrites = ["240831ea22da9ab882b551b31d4225591e5e447a68c5e188db5b89ca1d487585", "a24da68318b08ac9c9c45029f4a10371ab5b20e4226738e150e6e7c571630ae6"]
 attrs = ["4b90b09eeeb9b88c35bc642cbac057e45a5fd85367b985bd2809c62b7b939265", "e0d0eb91441a3b53dab4d9b743eafc1ac44476296a2053b6ca3af0b139faf87b"]
 click = ["29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d", "f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"]
 colorama = ["463f8483208e921368c9f306094eb6f725c6ca42b0f97e313cb5d5512459feda", "48eb22f4f8461b1df5734a074b57042430fb06e1d61bd1e11b078c0fe6d7a1f1"]
-et-xmlfile = ["614d9722d572f6246302c4491846d2c393c199cfa4edc9af593437691683335b"]
 flask = ["2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48", "a080b744b7e345ccfcbc77954861cb05b3c63786e93f2b3875e0913d44b43f05"]
-flask-restful = ["5795519501347e108c436b693ff9a4d7b373a3ac9069627d64e4001c05dd3407", "e2f1b8063de3944b94c7f8be5cee4d2161db0267c54c5b757d875295061776fa"]
 itsdangerous = ["cbb3fcf8d3e33df861709ecaf89d9e6629cff0a217bc2848f1b41cd30d360519"]
-jdcal = ["948fb8d079e63b4be7a69dd5f0cd618a0a57e80753de8248fd786a8a20658a07", "ea0a5067c5f0f50ad4c7bdc80abad3d976604f6fb026b0b3a17a9d84bb9046c9"]
 jinja2 = ["74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd", "f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"]
 lml = ["12783c8851bb1b1aacf6d139aa41fb529e1723bff863e71034af07a55bf1e5a3", "58a11170ecb0ce5e4680ad8971f1e353b795d58953217d65c9a56e0d774261d6"]
 markupsafe = ["a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665"]
-more-itertools = ["2b6b9893337bfd9166bee6a62c2b0c9fe7735dcf85948b387ec8cba30e85d8e8", "6703844a52d3588f951883005efcf555e49566a48afd4db4e965d69b883980d3", "a18d870ef2ffca2b8463c0070ad17b5978056f403fb64e3f15fe62a52db21cc0"]
-openpyxl = ["9239b74faf175dc4276a5fc277655fc53c2f704ded39e680d35e6a39e1913f69"]
-oyaml = ["46510c036d202ae683c9fd78f8cac164f404b2b1a6d369ec0edcbd47fb40db3c", "5f0072546a46ae2c77c03406838d55015646f4025ac99b78f5c05801727ad220"]
-pluggy = ["7f8ae7f5bdf75671a718d2daf0a64b7885f74510bcd98b1a0bb420eb9a9d0cff", "d345c8fe681115900d6da8d048ba67c25df42973bda370783cd58826442dcd7c", "e160a7fcf25762bb60efc7e171d4497ff1d8d2d75a3d0df7a21b76821ecbf5c5"]
+more-itertools = ["c187a73da93e7a8acc0001572aebc7e3c69daf7bf6881a2cea10650bd4420092", "c476b5d3a34e12d40130bc2f935028b5f636df8f372dc2c1c01dc19681b2039e", "fcbfeaea0be121980e15bc97b3817b5202ca73d0eae185b4550cbfce2a3ebb3d"]
+pathlib2 = ["8eb170f8d0d61825e09a95b38be068299ddeda82f35e96c3301a8a5e7604cb83", "d1aa2a11ba7b8f7b21ab852b1fb5afb277e1bb99d5dfc663380b5015c0d80c5a"]
+pluggy = ["6e3836e39f4d36ae72840833db137f7b7d35105079aee6ec4a62d9f80d594dd1", "95eb8364a4708392bae89035f45341871286a333f749c3141c20573d2b3876e1"]
 py = ["3fd59af7435864e1a243790d322d763925431213b6b8529c6ca71081ace3bbf7", "e31fb2767eb657cbde86c454f02e99cb846d3cd9d61b318525140214fdc0e98e"]
 pyexcel = ["4c470a7059d54e1c24112008a3410d1ff16d65fc47fa32a87d9581f1d92db11e", "7554b140729eaa679c0d627d5a44c787cd7216a917fa61f3da9f6b91438c9d43"]
-pyexcel-export = ["619d117832c1af8411070a8fcf1f0102c863fedca56ba94abb073bb966764ab9", "cd29292dbd2740ccdcf543ab1452e3f6b74bca6cdbad71879b959a5dde745b6d"]
-pyexcel-handsontable = ["5d86cdcce942b8a351b6b147d312d54deb07a0e63b33275fa20de72efde75362", "f6f3e6fcd97610db676a0f3d6030897247ca615245e747acae79f7b92314db09"]
 pyexcel-io = ["5cf5ccf7750ca130640277f31178b6284a4f9f0f0d1d41f28f419b67ce26132b", "d0639851fce803c772ccf0b8ec975f212cb64b6681b63d67e89a2ea238c0afdb"]
-pyexcel-xlsx = ["4b406c0ec64c577a171335ab3bca8acd3bc845b5c99691c3600d11c284091435", "4e1f953427ac5073ee7e42d30e7108f24fde475e58e24822033fdc90a6131291"]
-pyqt5 = ["700b8bb0357bf0ac312bce283449de733f5773dfc77083664be188c8e964c007", "76d52f3627fac8bfdbc4857ce52a615cd879abd79890cde347682ff9b4b245a2", "7d0f7c0aed9c3ef70d5856e99f30ebcfe25a58300158dd46ee544cbe1c5b53db", "d5dc2faf0aeacd0e8b69af1dc9f1276a64020193148356bb319bdfae22b78f88"]
-pyqt5-sip = ["3bcd8efae7798ce41aa7c3a052bd5ce1849f437530b8a717bae39197e780f505", "4a3c5767d6c238d8c62d252ac59312fac8b2264a1e8a5670081d7f3545893005", "67481d70fb0c7fb83e77b9025e15d0e78c7647c228eef934bd20ba716845a519", "7b2e563e4e56adee00101a29913fdcc49cc714f6c4f7eb35449f493c3a88fc45", "92a4950cba7ad7b7f67c09bdf80170ac225b38844b3a10f1271b02bace2ffc64", "9309c10f9e648521cfe03b62f4658dad2314f81886062cb30e0ad31b337e14b0", "9f524e60fa6113b50c48fbd869b2aef19833f3fe278097b1e7403e8f4dd5392c", "a10f59ad65b34e183853e1387b68901f473a2041f7398fac87c4e445ab149830", "abc2b2df469b4efb01d9dba4b804cbf0312f109ed74752dc3a37394a77d55b1f", "c09c17009a2dd2a6317a14d3cea9b2300fdb2206cf9bc4bae0870d1919897935", "c30c162e1430fd5a02207f1bd478e170c61d89fcca11ac6d8babb73cb33a86a8", "f00ceceef75a2140fda737bd30847ac69b7d92fbd32b6ea7b387017e72176bd8"]
-pytest = ["0453c8676c2bee6feb0434748b068d5510273a916295fd61d306c4f22fbfd752", "4b208614ae6d98195430ad6bde03641c78553acee7c83cec2e85d613c0cd383d"]
-pytz = ["a061aa0a9e06881eb8b3b2b43f05b9439d6583c206d0a6c340ff72a7b6669053", "ffb9ef1de172603304d9d2819af6f5ece76f2e85ec10692a524dd876e72bf277"]
-pyyaml = ["3d7da3009c0f3e783b2c873687652d83b1bbfd5c88e9813fb7e5b03c0dd3108b", "3ef3092145e9b70e3ddd2c7ad59bdd0252a94dfe3949721633e41344de00a6bf", "40c71b8e076d0550b2e6380bada1f1cd1017b882f7e16f09a65be98e017f211a", "558dd60b890ba8fd982e05941927a3911dc409a63dcb8b634feaa0cda69330d3", "a7c28b45d9f99102fa092bb213aa12e0aaf9a6a1f5e395d36166639c1f96c3a1", "aa7dd4a6a427aed7df6fb7f08a580d68d9b118d90310374716ae90b710280af1", "bc558586e6045763782014934bfaf39d48b8ae85a2713117d16c39864085c613", "d46d7982b62e0729ad0175a9bc7e10a566fc07b224d2c79fafb5e032727eaa04", "d5eef459e30b09f5a098b9cea68bebfeb268697f78d647bd255a085371ac7f3f", "e01d3203230e1786cd91ccfdc8f8454c8069c91bee3962ad93b87a4b2860f537", "e170a9e6fcfd19021dd29845af83bb79236068bf5fd4df3327c1be18182b2531"]
+pyexcel-xls = ["60bba3e80a0aa6af62f8d8a0fdff292b2acba14c047374611986ae572c430a98", "6fed6e1beffb0a612602da62d80ebde71b645538021201018e564db9096fe67f"]
+pytest = ["86a8dbf407e437351cef4dba46736e9c5a6e3c3ac71b2e942209748e76ff2086", "e74466e97ac14582a8188ff4c53e6cc3810315f342f6096899332ae864c1d432"]
+python-dotenv = ["38f22d75f1180256e60c8b06aa06f5254479c1bf5947430c97e3d737d90e8731", "52e8c56e7c362fe9082abc949ea5fed6993c3651e059df0d7c8e18883827d737"]
+scandir = ["01babbf0fea42a135f6e24747cac63225399d97a67a9a7eedc1f0510b63122db", "0f0059d907817cd3c07f1b658611aabd1af0a4bdc4bb7b211dfd8962d5bd46ba", "11e3bd756b13db4baca364985575eeef4781ce35ce66e2324811091b39b97cdb", "49345923704d611458335872925802620fcf895e1c67074dd8ea715e579f2581", "7f94d5967d61d1b5e415840b3a8995cb00a90893b9628451745e57a3749546d6", "8231e327a3a1c090b4f09ba40cc0b75a85939812d0e8f4c83acd745df3ed6c23", "8d5011d3a99042c4d90e8adda0052d4475aae3d57bb927012267a6c59186d870", "9f703e6b8eb53211d39c0f10e5c02f86e9a989fd44913b5c992259312d9bd59d", "b009e15a3d73376a84f8d8fad9b5ab6d9f96cb7606bdb867a4c882f10508e57e", "b0e0b4e6de8f8aae41a9fb4834127ee125668c363a79c62eb9f9c77de58e7b71", "f70d557a271ee9973087dc704daea205c95f021ee149f1605592bb0b1571ad78"]
 six = ["70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9", "832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"]
 texttable = ["95e8cfe85f8395a7eacdfbc8f09d885b9ef3a6ac6ead0364ea721de1127aa36b"]
 werkzeug = ["c3fd7a7d41976d9f44db327260e263132466836cef6f91512889ed60ad26557c", "d5da73735293558eb1651ee2fddc4d0dedcfa06538b8813a2e20011583c9e49b"]
+xlrd = ["83a1d2f1091078fb3f65876753b5302c5cfb6a41de64b9587b74cefa75157148", "8a21885513e6d915fe33a8ee5fdfa675433b61405ba13e2a69e62ee36828d7e2"]
+xlwt = ["a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e", "c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88"]
