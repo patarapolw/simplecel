@@ -1,9 +1,14 @@
 [tool.poetry]
 name = "simplecel"
-version = "0.1.3"
+version = "0.1.3.1"
 description = "Excel workbook with no formula conversion, but with markdown/HTML support."
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
 license = "MIT"
+readme = "README.md"
+repository = "https://github.com/patarapolw/simplecel"
+homepage = "https://github.com/patarapolw/simplecel"
+
+keywords = ['excel', 'handsontable', 'pyexcel']
 
 [tool.poetry.dependencies]
 python = ">=3"
