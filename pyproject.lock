@@ -1,22 +1,4 @@
 [[package]]
-category = "dev"
-description = "Atomic file writes."
-name = "atomicwrites"
-optional = false
-platform = "UNKNOWN"
-python-versions = "*"
-version = "1.1.5"
-
-[[package]]
-category = "dev"
-description = "Classes Without Boilerplate"
-name = "attrs"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "18.1.0"
-
-[[package]]
 category = "main"
 description = "A simple wrapper around optparse for powerful command line utilities."
 name = "click"
@@ -24,18 +6,6 @@ optional = false
 platform = "*"
 python-versions = "*"
 version = "6.7"
-
-[[package]]
-category = "dev"
-description = "Cross-platform colored terminal text."
-name = "colorama"
-optional = false
-platform = "UNKNOWN"
-python-versions = "*"
-version = "0.3.9"
-
-[package.requirements]
-platform = "win32"
 
 [[package]]
 category = "main"
@@ -92,55 +62,6 @@ python-versions = "*"
 version = "1.0"
 
 [[package]]
-category = "dev"
-description = "More routines for operating on iterables, beyond itertools"
-name = "more-itertools"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "4.3.0"
-
-[package.dependencies]
-six = ">=1.0.0,<2.0.0"
-
-[[package]]
-category = "dev"
-description = "Object-oriented filesystem paths"
-name = "pathlib2"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "2.3.2"
-
-[package.dependencies]
-six = "*"
-
-[package.dependencies.scandir]
-python = "<3.5"
-version = "*"
-
-[package.requirements]
-python = "<3.6"
-
-[[package]]
-category = "dev"
-description = "plugin and hook calling mechanisms for python"
-name = "pluggy"
-optional = false
-platform = "unix"
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "0.7.1"
-
-[[package]]
-category = "dev"
-description = "library with cross-python path, ini-parsing, io, code, log facilities"
-name = "py"
-optional = false
-platform = "unix"
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.5.4"
-
-[[package]]
 category = "main"
 description = "A wrapper library that provides one API to read, manipulate and writedata in different excel formats"
 name = "pyexcel"
@@ -167,7 +88,7 @@ version = "0.5.7"
 lml = "0.0.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A wrapper library to read, manipulate and write data in xls format. Itreads xlsx and xlsm format"
 name = "pyexcel-xls"
 optional = false
@@ -182,59 +103,12 @@ xlwt = "*"
 
 [[package]]
 category = "dev"
-description = "pytest: simple powerful testing with Python"
-name = "pytest"
-optional = false
-platform = "unix"
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "3.7.1"
-
-[package.dependencies]
-atomicwrites = ">=1.0"
-attrs = ">=17.4.0"
-more-itertools = ">=4.0.0"
-pluggy = ">=0.7"
-py = ">=1.5.0"
-setuptools = "*"
-six = ">=1.10.0"
-
-[package.dependencies.colorama]
-platform = "win32"
-version = "*"
-
-[package.dependencies.pathlib2]
-python = "<3.6"
-version = ">=2.2.0"
-
-[[package]]
-category = "main"
 description = "Add .env support to your django/flask apps in development and deployments"
 name = "python-dotenv"
 optional = false
 platform = "*"
 python-versions = "*"
 version = "0.9.0"
-
-[[package]]
-category = "dev"
-description = "scandir, a better directory iterator and faster os.walk()"
-name = "scandir"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "1.8"
-
-[package.requirements]
-python = "<3.5"
-
-[[package]]
-category = "dev"
-description = "Python 2 and 3 compatibility utilities"
-name = "six"
-optional = false
-platform = "*"
-python-versions = "*"
-version = "1.11.0"
 
 [[package]]
 category = "main"
@@ -255,7 +129,7 @@ python-versions = "*"
 version = "0.14.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Library for developers to extract data from Microsoft Excel (tm) spreadsheet files"
 name = "xlrd"
 optional = false
@@ -264,7 +138,7 @@ python-versions = "*"
 version = "1.1.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+"
 name = "xlwt"
 optional = false
@@ -273,31 +147,21 @@ python-versions = "*"
 version = "1.3.0"
 
 [metadata]
-content-hash = "0b8f10f607d58bafec2ec9ec34323c42a93edc634183b65bc3cc6f38b64b567b"
+content-hash = "0c19ad808b90a47340d882f95bf694ca0b52742151c354a9e89b4d43189876d7"
 platform = "*"
 python-versions = ">=3"
 
 [metadata.hashes]
-atomicwrites = ["240831ea22da9ab882b551b31d4225591e5e447a68c5e188db5b89ca1d487585", "a24da68318b08ac9c9c45029f4a10371ab5b20e4226738e150e6e7c571630ae6"]
-attrs = ["4b90b09eeeb9b88c35bc642cbac057e45a5fd85367b985bd2809c62b7b939265", "e0d0eb91441a3b53dab4d9b743eafc1ac44476296a2053b6ca3af0b139faf87b"]
 click = ["29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d", "f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"]
-colorama = ["463f8483208e921368c9f306094eb6f725c6ca42b0f97e313cb5d5512459feda", "48eb22f4f8461b1df5734a074b57042430fb06e1d61bd1e11b078c0fe6d7a1f1"]
 flask = ["2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48", "a080b744b7e345ccfcbc77954861cb05b3c63786e93f2b3875e0913d44b43f05"]
 itsdangerous = ["cbb3fcf8d3e33df861709ecaf89d9e6629cff0a217bc2848f1b41cd30d360519"]
 jinja2 = ["74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd", "f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"]
 lml = ["12783c8851bb1b1aacf6d139aa41fb529e1723bff863e71034af07a55bf1e5a3", "58a11170ecb0ce5e4680ad8971f1e353b795d58953217d65c9a56e0d774261d6"]
 markupsafe = ["a6be69091dac236ea9c6bc7d012beab42010fa914c459791d627dad4910eb665"]
-more-itertools = ["c187a73da93e7a8acc0001572aebc7e3c69daf7bf6881a2cea10650bd4420092", "c476b5d3a34e12d40130bc2f935028b5f636df8f372dc2c1c01dc19681b2039e", "fcbfeaea0be121980e15bc97b3817b5202ca73d0eae185b4550cbfce2a3ebb3d"]
-pathlib2 = ["8eb170f8d0d61825e09a95b38be068299ddeda82f35e96c3301a8a5e7604cb83", "d1aa2a11ba7b8f7b21ab852b1fb5afb277e1bb99d5dfc663380b5015c0d80c5a"]
-pluggy = ["6e3836e39f4d36ae72840833db137f7b7d35105079aee6ec4a62d9f80d594dd1", "95eb8364a4708392bae89035f45341871286a333f749c3141c20573d2b3876e1"]
-py = ["3fd59af7435864e1a243790d322d763925431213b6b8529c6ca71081ace3bbf7", "e31fb2767eb657cbde86c454f02e99cb846d3cd9d61b318525140214fdc0e98e"]
 pyexcel = ["4c470a7059d54e1c24112008a3410d1ff16d65fc47fa32a87d9581f1d92db11e", "7554b140729eaa679c0d627d5a44c787cd7216a917fa61f3da9f6b91438c9d43"]
 pyexcel-io = ["5cf5ccf7750ca130640277f31178b6284a4f9f0f0d1d41f28f419b67ce26132b", "d0639851fce803c772ccf0b8ec975f212cb64b6681b63d67e89a2ea238c0afdb"]
 pyexcel-xls = ["60bba3e80a0aa6af62f8d8a0fdff292b2acba14c047374611986ae572c430a98", "6fed6e1beffb0a612602da62d80ebde71b645538021201018e564db9096fe67f"]
-pytest = ["86a8dbf407e437351cef4dba46736e9c5a6e3c3ac71b2e942209748e76ff2086", "e74466e97ac14582a8188ff4c53e6cc3810315f342f6096899332ae864c1d432"]
 python-dotenv = ["38f22d75f1180256e60c8b06aa06f5254479c1bf5947430c97e3d737d90e8731", "52e8c56e7c362fe9082abc949ea5fed6993c3651e059df0d7c8e18883827d737"]
-scandir = ["01babbf0fea42a135f6e24747cac63225399d97a67a9a7eedc1f0510b63122db", "0f0059d907817cd3c07f1b658611aabd1af0a4bdc4bb7b211dfd8962d5bd46ba", "11e3bd756b13db4baca364985575eeef4781ce35ce66e2324811091b39b97cdb", "49345923704d611458335872925802620fcf895e1c67074dd8ea715e579f2581", "7f94d5967d61d1b5e415840b3a8995cb00a90893b9628451745e57a3749546d6", "8231e327a3a1c090b4f09ba40cc0b75a85939812d0e8f4c83acd745df3ed6c23", "8d5011d3a99042c4d90e8adda0052d4475aae3d57bb927012267a6c59186d870", "9f703e6b8eb53211d39c0f10e5c02f86e9a989fd44913b5c992259312d9bd59d", "b009e15a3d73376a84f8d8fad9b5ab6d9f96cb7606bdb867a4c882f10508e57e", "b0e0b4e6de8f8aae41a9fb4834127ee125668c363a79c62eb9f9c77de58e7b71", "f70d557a271ee9973087dc704daea205c95f021ee149f1605592bb0b1571ad78"]
-six = ["70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9", "832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"]
 texttable = ["95e8cfe85f8395a7eacdfbc8f09d885b9ef3a6ac6ead0364ea721de1127aa36b"]
 werkzeug = ["c3fd7a7d41976d9f44db327260e263132466836cef6f91512889ed60ad26557c", "d5da73735293558eb1651ee2fddc4d0dedcfa06538b8813a2e20011583c9e49b"]
 xlrd = ["83a1d2f1091078fb3f65876753b5302c5cfb6a41de64b9587b74cefa75157148", "8a21885513e6d915fe33a8ee5fdfa675433b61405ba13e2a69e62ee36828d7e2"]

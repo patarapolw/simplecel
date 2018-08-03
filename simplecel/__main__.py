@@ -1,4 +1,5 @@
 import os
+import webbrowser
 import click
 
 from . import app
@@ -19,6 +20,7 @@ def load_excel(filename, meta, host, port, debug):
         port=port,
         debug=debug
     )
+    webbrowser.open('http://{}:{}'.format(host, port))
 
 
 if __name__ == '__main__':
