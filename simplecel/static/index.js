@@ -18,6 +18,23 @@ const markdownConverter = new showdown.Converter;
 
 })(Handsontable);
 
+(function(Handsontable){
+  function customRenderer(hotInstance, td, row, column, prop, value, cellProperties) {
+    const img_regex = /(?:(?=^)|(?=\s).|^)([^\s<>"\']+\.(?:png|jpg|jpeg|gif))/g;
+
+    let text = Handsontable.helper.stringify(value);
+    text = text.replace(img_regex, "<img src='$1' width=200 />");
+
+    td.innerHTML = text;
+
+    return td;
+  }
+
+  // Register an alias
+  Handsontable.renderers.registerRenderer('imageRenderer', customRenderer);
+
+})(Handsontable);
+
 const sheetNames = Object.keys(data);
 let hot;
 let innerHTML = [];
@@ -27,6 +44,7 @@ sheetNames.forEach((item, index)=>{
 });
 
 const tabArea = document.getElementById('tab-area');
+const container = document.getElementById('handsontable-container');
 tabArea.innerHTML = innerHTML.join('');
 
 Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>{
@@ -43,18 +61,32 @@ Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>
   if(index === 0) item.click();
 });
 
+window.addEventListener('resize', ()=>{
+  const dimension = getTrueWindowDimension();
 
-function loadExcelSheet(sheetNumber) {
-  const container = document.getElementById('handsontable-container');
-  const dimensions = {
+  Object.assign(container.style, dimension);
+  Object.assign(document.getElementsByClassName('wtHolder')[0].style, dimension);
+});
+
+
+function getTrueWindowDimension(){
+  return {
     height: (window.innerHeight - document.getElementById('tab-area').offsetHeight) + 'px',
     width: window.innerWidth + 'px'
   };
-  Object.assign(container.style, dimensions);
+}
+
+function loadExcelSheet(sheetNumber) {
+  const dimension = getTrueWindowDimension();
+
+  Object.assign(container.style, dimension);
 
   let columnFormatter = [];
   data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
-    columnFormatter.push({data: index, renderer: "markdownRenderer"});
+    columnFormatter.push({
+      data: index,
+      // renderer: "markdownRenderer"
+    });
   });
 
   hot = new Handsontable(document.getElementById('handsontable-area'), {

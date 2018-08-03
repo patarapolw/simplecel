@@ -1,18 +1,23 @@
+body {
+  margin: 0px;
+}
+
 #tab-area {
   overflow-x: scroll;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  margin: 0;
+  display: inline-table;
+  width: 100%;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab-links {
   background-color: inherit;
-  float: left;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
+  margin: 0px;
   transition: 0.3s;
   font-size: 17px;
 }
