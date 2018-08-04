@@ -1,4 +1,5 @@
 const sheetNames = Object.keys(data);
+let sheetNumber = 0;
 let hot;
 let innerHTML = [];
 
@@ -8,12 +9,17 @@ sheetNames.forEach((item, index)=>{
 
 const tabArea = document.getElementById('tab-area');
 const container = document.getElementById('handsontable-container');
-tabArea.innerHTML = innerHTML.join('');
+tabArea.innerHTML = innerHTML.join('') + tabArea.innerHTML;
 
 Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>{
   item.addEventListener('click', ()=>{
-    if(hot !== undefined) hot.destroy();
-    loadExcelSheet(index);
+    if(hot !== undefined){
+      data[sheetNames[sheetNumber]] = hot.getData();
+      hot.destroy();
+    }
+
+    sheetNumber = index
+    loadExcelSheet();
 
     Array.from(document.getElementsByClassName('tab-links')).forEach((item2, index2)=>{
       item2.className = item2.className.replace(' active', '');
@@ -21,7 +27,22 @@ Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>
     item.className += ' active';
   });
 
-  if(index === 0) item.click();
+  if(index === sheetNumber) item.click();
+});
+
+document.getElementById('save').addEventListener('click', ()=>{
+  fetch('/api/save',{
+    method: 'post',
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({
+      config: config,
+      data: data
+    })
+  }).then((resp)=>{
+    alert('Saved!');
+  })
 });
 
 window.addEventListener('resize', ()=>{
@@ -39,7 +60,7 @@ function getTrueWindowDimension(){
   };
 }
 
-function loadExcelSheet(sheetNumber) {
+function loadExcelSheet() {
   const dimension = getTrueWindowDimension();
 
   Object.assign(container.style, dimension);
@@ -97,7 +118,6 @@ function loadExcelSheet(sheetNumber) {
       if(width > actualConfig.maxColWidth) return actualConfig.maxColWidth;
     }
   }
-  console.log(actualConfig);
 
   hot = new Handsontable(document.getElementById('handsontable-area'), actualConfig);
 
@@ -108,10 +128,17 @@ function loadExcelSheet(sheetNumber) {
     });
 
     hot.updateSettings({
-      modifyColWidth: ()=>{},
       colWidths: colWidths
     });
 
     actualConfig.colWidths = config[sheetNames[sheetNumber]].colWidths = colWidths;
   }
+
+  hot.updateSettings({
+    modifyColWidth: (width, column)=>{
+      actualConfig.colWidths[column]
+        = config[sheetNames[sheetNumber]].colWidths[column]
+        = width;
+    }
+  })
 }

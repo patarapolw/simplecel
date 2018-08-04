@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "simplecel"
-version = "0.1.7"
+version = "0.2.0.1"
 description = "Excel workbook with no formula conversion, but with markdown/HTML support."
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
 license = "MIT"
@@ -19,6 +19,7 @@ click = "^6.7"
 [tool.poetry.dev-dependencies]
 python-dotenv = "^0.9.0"
 pyexcel-xls = "^0.5.7"
+pyexcel-export = "^0.3.5"
 
 [tool.poetry.scripts]
 simplecel = 'simplecel.__main__:load_excel'

@@ -2,16 +2,20 @@ body {
   margin: 0px;
 }
 
-#tab-area {
-  overflow-x: scroll;
+#nav-area {
   border: 1px solid #ccc;
   background-color: #f1f1f1;
   display: inline-table;
   width: 100%;
 }
 
+#tab-area {
+  overflow-x: scroll;
+  display: inline-table;
+}
+
 /* Style the buttons that are used to open the tab content */
-.tab-links {
+.tab-links, #save {
   background-color: inherit;
   border: none;
   outline: none;
@@ -30,6 +34,13 @@ body {
 /* Create an active/current tablink class */
 .tab-links.active {
   background-color: #ccc;
+}
+
+#save {
+  float: right;
+  z-index: 100;
+  background-color: #27ae60;
+  color: white;
 }
 
 #handsontable-container {
