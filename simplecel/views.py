@@ -16,14 +16,14 @@ def open_file():
     else:
         data = dict()
 
-    meta_path = Path(os.environ.get('META', ''))
-    if meta_path.is_dir():
-        os.environ['META'] = str(meta_path.joinpath(filename_path.name).with_suffix('.json'))
-        meta = dict()
-    elif meta_path.exists():
-        meta = json.loads(meta_path.read_text())
+    config_path = Path(os.environ.get('CONFIG', ''))
+    if config_path.is_dir():
+        os.environ['META'] = str(config_path.joinpath(filename_path.name).with_suffix('.config.json'))
+        config = dict()
+    elif config_path.exists():
+        config = json.loads(config_path.read_text())
     else:
-        meta = dict()
+        config = dict()
 
     return render_template('index.html',
-                           title=str(filename_path), data=data, meta=meta)
+                           title=str(filename_path), data=data, config=config)

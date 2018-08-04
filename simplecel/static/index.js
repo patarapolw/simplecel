@@ -1,40 +1,3 @@
-const markdownConverter = new showdown.Converter;
-
-(function(Handsontable){
-  function customRenderer(hotInstance, td, row, column, prop, value, cellProperties) {
-    const img_regex = /(?:(?=^)|(?=\s).|^)([^\s<>"\']+\.(?:png|jpg|jpeg|gif))/g;
-
-    let text = Handsontable.helper.stringify(value);
-    text = text.replace(/\n+/g, "\n\n");
-    text = text.replace(img_regex, "<img src='$1' width=200 />");
-
-    td.innerHTML = markdownConverter.makeHtml(text);
-
-    return td;
-  }
-
-  // Register an alias
-  Handsontable.renderers.registerRenderer('markdownRenderer', customRenderer);
-
-})(Handsontable);
-
-(function(Handsontable){
-  function customRenderer(hotInstance, td, row, column, prop, value, cellProperties) {
-    const img_regex = /(?:(?=^)|(?=\s).|^)([^\s<>"\']+\.(?:png|jpg|jpeg|gif))/g;
-
-    let text = Handsontable.helper.stringify(value);
-    text = text.replace(img_regex, "<img src='$1' width=200 />");
-
-    td.innerHTML = text;
-
-    return td;
-  }
-
-  // Register an alias
-  Handsontable.renderers.registerRenderer('imageRenderer', customRenderer);
-
-})(Handsontable);
-
 const sheetNames = Object.keys(data);
 let hot;
 let innerHTML = [];
@@ -81,36 +44,74 @@ function loadExcelSheet(sheetNumber) {
 
   Object.assign(container.style, dimension);
 
-  let columnFormatter = [];
-  data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
-    columnFormatter.push({
-      data: index,
-      // renderer: "markdownRenderer"
+  let actualConfig = {
+    data: data[sheetNames[sheetNumber]],
+    columns: []
+  };
+
+  Object.keys(defaultConfig).forEach((key)=>{
+    if(config[sheetNames[sheetNumber]] === undefined){
+      config[sheetNames[sheetNumber]] = {};
+    }
+    if(config[sheetNames[sheetNumber]][key] === undefined){
+      config[sheetNames[sheetNumber]][key] = defaultConfig[key];
+    }
+  })
+  Object.assign(actualConfig, config[sheetNames[sheetNumber]]);
+
+  if(config[sheetNames[sheetNumber]].hasHeader){
+    actualConfig.colHeaders = data[sheetNames[sheetNumber]][0];
+    actualConfig.data = data[sheetNames[sheetNumber]].slice(1);
+  } else {
+    actualConfig.data = data[sheetNames[sheetNumber]];
+  }
+
+  if(actualConfig.columns.length === 0){
+    const renderers = actualConfig.renderers;
+
+    if(typeof renderers === 'string'){
+      data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
+        actualConfig.columns.push({
+          data: index,
+          renderer: renderers
+        });
+      });
+    } else if(renderers !== null && typeof renderers === 'object') {
+      data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
+        actualConfig.columns.push({
+          data: index,
+          renderer: renderers[index.toString()]
+        });
+      });
+    } else {
+      data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
+        actualConfig.columns.push({
+          data: index
+        });
+      });
+    }
+  }
+
+  if(actualConfig.colWidths === undefined && actualConfig.modifyColWidth === undefined){
+    actualConfig.modifyColWidth = (width, col)=>{
+      if(width > actualConfig.maxColWidth) return actualConfig.maxColWidth;
+    }
+  }
+  console.log(actualConfig);
+
+  hot = new Handsontable(document.getElementById('handsontable-area'), actualConfig);
+
+  if(actualConfig.colWidths === undefined && config[sheetNames[sheetNumber]].modifyColWidth === undefined){
+    colWidths = [];
+    [...Array(hot.countCols()).keys()].map(i => {
+      colWidths.push(hot.getColWidth(i));
     });
-  });
 
-  hot = new Handsontable(document.getElementById('handsontable-area'), {
-    data: data[sheetNames[sheetNumber]].slice(1),
-    rowHeaders: false,
-    colHeaders: data[sheetNames[sheetNumber]][0],
-    columns: columnFormatter,
-    manualColumnResize: true,
-    filters: true,
-    dropdownMenu: true,
-    contextMenu: true,
-    modifyColWidth: (width, col)=>{
-      if(width > 200) return 200;
-    },
-    manualRowResize: true
-  });
+    hot.updateSettings({
+      modifyColWidth: ()=>{},
+      colWidths: colWidths
+    });
 
-  colWidths = [];
-  [...Array(hot.countCols()).keys()].map(i => {
-    colWidths.push(hot.getColWidth(i));
-  });
-
-  hot.updateSettings({
-    modifyColWidth: ()=>{},
-    colWidths: colWidths
-  });
+    actualConfig.colWidths = config[sheetNames[sheetNumber]].colWidths = colWidths;
+  }
 }

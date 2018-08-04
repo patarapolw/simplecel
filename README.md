@@ -11,7 +11,7 @@ Excel workbook with no formula conversion, but with markdown/HTML support.
 
 ```commandline
 pip install simplecel
-pip install pyexcel-xls  # Or any other packages defined in pyexcel GitHub
+pip install pyexcel-xlsx  # Or any other packages defined in pyexcel GitHub
 ```
 
 For what you need to install other than `simplecel`, please see https://github.com/pyexcel/pyexcel#available-plugins
@@ -23,14 +23,59 @@ $ simplecel --help
 Usage: simplecel [OPTIONS] FILENAME
 
 Options:
-  --meta TEXT     Please input the path to META json, as defined in pyexcel-
-                  export.
+  --config TEXT     Please input the path to CONFIG json, as defined in pyhandsontable.
   --host TEXT
   --port INTEGER
   --debug
   --help          Show this message and exit.
 $ simplecel example.xlsx
 ```
+
+## Example of `filename.config.json`
+
+```json
+{
+  "hanzi": {
+    "hasHeader": true,
+    "renderers": "markdownRenderer"
+  },
+  "vocab": {
+    "hasHeader": true,
+    "renderers": "markdownRenderer"
+  },
+  "sentences": {
+    "hasHeader": true,
+    "renderers": "markdownRenderer"
+  }
+}
+```
+
+Note that the `defaultConfig` are
+
+```javascript
+{
+  rowHeaders: true,
+  colHeaders: true,
+  manualRowResize: true,
+  manualColumnResize: true,
+  filters: true,
+  dropdownMenu: true,
+  contextMenu: true,
+  maxColWidth: 200,
+  hasHeader: false
+}
+```
+
+`renderers` can also accept something like
+
+```python
+{
+    1: "markdownRenderer",
+    2: "markdownRenderer"
+}
+```
+
+Some other acceptable configs are defined in https://docs.handsontable.com/5.0.0/Options.html
 
 ## Plan
 

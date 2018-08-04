@@ -23,8 +23,10 @@
   <script src="https://cdn.jsdelivr.net/npm/handsontable-pro/dist/handsontable.full.min.js"></script>
   <script src="{{ url_for('static', filename='vendor/showdown.min.js') }}"></script>
 
-  <script>var data = {{ data|tojson|safe }};</script>
-  <script>var meta = {{ meta|tojson|safe }};</script>
+  <script>var data = {{ data|tojson }};</script>
+  <script>var config = {{ config|tojson }};</script>
+  <script src="{{ url_for('static', filename='renderer.js') }}"></script>
+  <script src="{{ url_for('static', filename='default.js') }}"></script>
   <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>
 </html>
