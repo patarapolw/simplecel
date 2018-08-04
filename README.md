@@ -10,7 +10,8 @@ Excel workbook with no formula conversion, but with markdown/HTML support.
 ## Features
 
 - Custom renderers beyond https://docs.handsontable.com/5.0.0/demo-custom-renderers.html -- 'markdownRenderer', 'imageRenderer'.
-- Always good word wrap support due to Handsontable.
+- Always good word wrap support and auto-row-height due to Handsontable.
+- Absolutely no formula conversion. Things like `=1+2`, `OCT2`, `11-14` will never get converted.
 - Max column width can be specified (default: 200).
 
 ## Installation
