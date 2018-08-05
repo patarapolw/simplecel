@@ -9,5 +9,6 @@ let defaultConfig = {
   contextMenu: true,
   maxColWidth: 200,
   hasHeader: false,
-  // renderers: 'markdownRenderer'
+  // renderers: 'markdownRenderer',
+  allowInsertCol: true
 };

@@ -1,12 +1,11 @@
 Array.prototype.extend = function (other_array) {
-    /* you should include a test to check whether other_array really is an array */
-    other_array.forEach(function(v) {this.push(v)}, this);
+  /* you should include a test to check whether other_array really is an array */
+  other_array.forEach(function(v) {this.push(v)}, this);
 }
 
 let sheetNames = Object.keys(data);
 let sheetNumber = 0;
 let hot;
-let colHeaders;
 const container = document.getElementById('handsontable-container');
 
 createTabs();
@@ -79,8 +78,12 @@ function addTabListener(){
       }
 
       if(hot !== undefined){
-        if(colHeaders !== undefined){
-          data[sheetNames[sheetNumber]] = [colHeaders];
+        const filtersPlugin = hot.getPlugin('filters');
+        filtersPlugin.clearConditions();
+        filtersPlugin.filter();
+
+        if(config[sheetNames[sheetNumber]].hasHeader){
+          data[sheetNames[sheetNumber]] = [hot.getColHeader()];
         } else {
           data[sheetNames[sheetNumber]] = [];
         }
@@ -111,12 +114,16 @@ function loadExcelSheet(isNew) {
   Object.keys(defaultConfig).forEach((key)=>{
     if(config[sheetNames[sheetNumber]] === undefined){
       config[sheetNames[sheetNumber]] = JSON.parse(JSON.stringify(config._default || {}));
-    }
 
-    if(isNew){
-      config[sheetNames[sheetNumber]].hasHeader = false;
-      config[sheetNames[sheetNumber]].colHeaders = true;
-      colHeaders = undefined;
+      if(isNew){
+        const newConfig = {
+          hasHeader: false,
+          colHeaders: true,
+          allowInsertCol: true
+        };
+
+        Object.assign(config[sheetNames[sheetNumber]], newConfig);
+      }
     }
 
     if(config[sheetNames[sheetNumber]][key] === undefined){
@@ -127,8 +134,7 @@ function loadExcelSheet(isNew) {
   console.log(actualConfig);
 
   if(config[sheetNames[sheetNumber]].hasHeader){
-    colHeaders = data[sheetNames[sheetNumber]][0];
-    actualConfig.colHeaders = colHeaders;
+    actualConfig.colHeaders = data[sheetNames[sheetNumber]][0];
     actualConfig.data = data[sheetNames[sheetNumber]].slice(1);
   } else {
     actualConfig.data = data[sheetNames[sheetNumber]];
@@ -140,22 +146,18 @@ function loadExcelSheet(isNew) {
     if(typeof renderers === 'string'){
       data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
         actualConfig.columns.push({
-          data: index,
           renderer: renderers
         });
       });
     } else if(renderers !== null && typeof renderers === 'object') {
       data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
         actualConfig.columns.push({
-          data: index,
           renderer: renderers[index.toString()]
         });
       });
     } else {
       data[sheetNames[sheetNumber]][0].forEach((item, index)=>{
-        actualConfig.columns.push({
-          data: index
-        });
+        actualConfig.columns.push({});
       });
     }
   }
@@ -187,5 +189,114 @@ function loadExcelSheet(isNew) {
         = config[sheetNames[sheetNumber]].colWidths[column]
         = width;
     }
-  })
+  });
+
+  if(actualConfig.allowInsertCol){
+    setTimeout(()=>{
+      let menuItems = hot.getPlugin('contextMenu').menu.menuItems;
+
+      menuItems.forEach((item, index)=>{
+        if(item.key === "col_left"){
+          menuItems.splice(index, 2,
+            {
+              key: "col_left",
+              name: "Insert column left",
+              callback: ()=>{
+                const currentCol = hot.getSelected()[0][1];
+                insertColumn(currentCol, actualConfig, hot);
+              },
+              disabled: false
+            },
+            {
+              key: "col_right",
+              name: "Insert column right",
+              callback: ()=>{
+                const currentCol = hot.getSelected()[0][1];
+                insertColumn(currentCol + 1, actualConfig, hot);
+              },
+              disabled: false
+            }
+          );
+        } else if(item.key === 'remove_col'){
+          menuItems.splice(index, 1,
+            {
+              key: "remove_col",
+              name: "Remove column",
+              callback: ()=>{
+                const currentCol = hot.getSelected()[0][1];
+
+                removeColumn(currentCol, actualConfig, hot);
+              },
+              disabled: false
+            }
+          )
+        }
+      })
+
+      hot.updateSettings({
+        contextMenu: menuItems
+      });
+    }, 1000);
+  }
+}
+
+function insertColumn(index, actualConfig, hotInstance){
+  if(typeof renderers === 'string'){
+    actualConfig.columns.splice(index, 0, {
+      renderer: renderers
+    });
+  } else {
+    actualConfig.columns.splice(index, 0, {});
+  }
+
+  if(Array.isArray(actualConfig.colHeaders)){
+    actualConfig.colHeaders.splice(index, 0,
+      characterRange('A', actualConfig.colHeaders.length + 1)[index]);
+  }
+
+  actualConfig.colWidths.splice(index, 0, null);
+
+  actualConfig.data.forEach((item)=>{
+    item.splice(index, 0, '');
+  });
+
+  hotInstance.updateSettings({
+    columns: actualConfig.columns,
+    colHeaders: actualConfig.colHeaders,
+    colWidths: actualConfig.colWidths,
+    data: actualConfig.data
+  });
+}
+
+function removeColumn(index, actualConfig, hotInstance){
+  if(typeof renderers === 'string'){
+    actualConfig.columns.splice(index, 1);
+  } else {
+    actualConfig.columns.splice(index, 1);
+  }
+
+  if(Array.isArray(actualConfig.colHeaders)){
+    actualConfig.colHeaders.splice(index, 1);
+  }
+
+  actualConfig.colWidths.splice(index, 1);
+
+  actualConfig.data.forEach((item)=>{
+    item.splice(index, 1);
+  });
+
+  hotInstance.updateSettings({
+    columns: actualConfig.columns,
+    colHeaders: actualConfig.colHeaders,
+    colWidths: actualConfig.colWidths,
+    data: actualConfig.data
+  });
+}
+
+function range(size, startAt = 0) {
+  return [...Array(size).keys()].map(i => i + startAt);
+}
+
+function characterRange(startChar, numberOfChar) {
+  return String.fromCharCode(...range(numberOfChar, startChar.charCodeAt(0)))
 }
