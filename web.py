@@ -1,14 +1,21 @@
 #!/usr/bin/env python
 
-from simplecel import app
 from dotenv import load_dotenv
 
-if __name__ == '__main__':
+from simplecel import app
+from simplecel.util import open_browser_tab
+
+
+def load(host, port):
     load_dotenv()
 
+    open_browser_tab('http://{}:{}'.format(host, port))
     app.run(
-        host='localhost',
-        # host='192.168.1.13',
-        port=7500,
+        host=host,
+        port=port,
         debug=True
     )
+
+
+if __name__ == '__main__':
+    load('localhost', 7500)

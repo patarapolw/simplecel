@@ -26,6 +26,9 @@ def open_file():
     else:
         config = dict()
 
+    # print('FILENAME: {}'.format(filename_path.absolute()))
+    # print('CONFIG: {}'.format(config_path.absolute()))
+
     os.environ['FILENAME'] = str(filename_path)
     os.environ['CONFIG'] = str(config_path)
 

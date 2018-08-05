@@ -3,44 +3,14 @@ Array.prototype.extend = function (other_array) {
     other_array.forEach(function(v) {this.push(v)}, this);
 }
 
-const sheetNames = Object.keys(data);
+let sheetNames = Object.keys(data);
 let sheetNumber = 0;
 let hot;
-
 let colHeaders;
-let innerHTML = [];
-
-sheetNames.forEach((item, index)=>{
-  innerHTML.push('<button class="tab-links">' + item + '</button>');
-});
-
-const tabArea = document.getElementById('tab-area');
 const container = document.getElementById('handsontable-container');
-tabArea.innerHTML = innerHTML.join('') + tabArea.innerHTML;
 
-Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>{
-  item.addEventListener('click', ()=>{
-    if(hot !== undefined){
-      if(colHeaders !== undefined){
-        data[sheetNames[sheetNumber]] = [colHeaders];
-      } else {
-        data[sheetNames[sheetNumber]] = [];
-      }
-      data[sheetNames[sheetNumber]].extend(hot.getData());
-      hot.destroy();
-    }
-
-    sheetNumber = index
-    loadExcelSheet();
-
-    Array.from(document.getElementsByClassName('tab-links')).forEach((item2, index2)=>{
-      item2.className = item2.className.replace(' active', '');
-    });
-    item.className += ' active';
-  });
-
-  if(index === sheetNumber) item.click();
-});
+createTabs();
+document.getElementsByClassName('tab-links')[0].click();
 
 document.getElementById('save').addEventListener('click', ()=>{
   fetch('/api/save',{
@@ -65,6 +35,21 @@ window.addEventListener('resize', ()=>{
 });
 
 
+function createTabs(){
+  let innerHTML = [];
+
+  sheetNames.forEach((item, index)=>{
+    innerHTML.push('<button class="tab-links" id="tab-' + item + '">'
+      + item + '</button>');
+  });
+  innerHTML.push('<button class="tab-links tab-new">+</button>');
+
+  const tabArea = document.getElementById('tab-area');
+  tabArea.innerHTML = innerHTML.join('');
+
+  addTabListener();
+}
+
 function getTrueWindowDimension(){
   return {
     height: (window.innerHeight - document.getElementById('tab-area').offsetHeight) + 'px',
@@ -72,7 +57,49 @@ function getTrueWindowDimension(){
   };
 }
 
-function loadExcelSheet() {
+function addTabListener(){
+  Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>{
+    item.addEventListener('click', ()=>{
+      let isNew;
+
+      if(item.className.indexOf('tab-new') !== -1){
+        const newSheetName = prompt("Please enter new sheet name:", "Sheet" + (index + 1));
+
+        sheetNames.push(newSheetName)
+        createTabs();
+
+        const newSheetElement = document.getElementById('tab-' + newSheetName);
+        newSheetElement.className = newSheetElement.className.replace(' tab-new', '');
+
+        data[newSheetName] = Array(5).fill(Array(5).fill(''));
+
+        isNew = true;
+      } else {
+        isNew = false;
+      }
+
+      if(hot !== undefined){
+        if(colHeaders !== undefined){
+          data[sheetNames[sheetNumber]] = [colHeaders];
+        } else {
+          data[sheetNames[sheetNumber]] = [];
+        }
+        data[sheetNames[sheetNumber]].extend(hot.getData());
+        hot.destroy();
+      }
+
+      sheetNumber = index
+      loadExcelSheet(isNew);
+
+      Array.from(document.getElementsByClassName('tab-links')).forEach((item2, index2)=>{
+        item2.className = item2.className.replace(' active', '');
+      });
+      item.className += ' active';
+    });
+  });
+}
+
+function loadExcelSheet(isNew) {
   const dimension = getTrueWindowDimension();
 
   Object.assign(container.style, dimension);
@@ -85,11 +112,19 @@ function loadExcelSheet() {
     if(config[sheetNames[sheetNumber]] === undefined){
       config[sheetNames[sheetNumber]] = JSON.parse(JSON.stringify(config._default || {}));
     }
+
+    if(isNew){
+      config[sheetNames[sheetNumber]].hasHeader = false;
+      config[sheetNames[sheetNumber]].colHeaders = true;
+      colHeaders = undefined;
+    }
+
     if(config[sheetNames[sheetNumber]][key] === undefined){
       config[sheetNames[sheetNumber]][key] = defaultConfig[key];
     }
   })
   Object.assign(actualConfig, config[sheetNames[sheetNumber]]);
+  console.log(actualConfig);
 
   if(config[sheetNames[sheetNumber]].hasHeader){
     colHeaders = data[sheetNames[sheetNumber]][0];

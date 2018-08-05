@@ -105,3 +105,4 @@ Some other acceptable configs are defined in https://docs.handsontable.com/5.0.0
 ## Screenshots
 
 <img src="https://raw.githubusercontent.com/patarapolw/simplecel/master/screenshots/0.png" />
+<img src="https://raw.githubusercontent.com/patarapolw/simplecel/master/screenshots/1.png" />
