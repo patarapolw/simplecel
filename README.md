@@ -8,7 +8,7 @@ Excel workbook with no formula conversion, but with markdown/HTML support.
 
 ## Features
 
-- Custom renderers beyond https://docs.handsontable.com/5.0.0/demo-custom-renderers.html -- 'markdownRenderer', 'imageRenderer'. -- Can render images with URL's alone. No need for `<img src="" />"`.
+- Custom renderers beyond https://docs.handsontable.com/5.0.0/demo-custom-renderers.html -- 'markdownRenderer', 'imageRenderer'. -- Can render images with URL's alone. No need for `<img src="" />`.
 - Always good word wrap support and auto-row-height due to Handsontable.
 - Absolutely no formula conversion. Things like `=1+2`, `OCT2`, `11-14` will never get converted.
 - Max column width can be specified (default: 200).
@@ -37,7 +37,7 @@ Options:
 $ simplecel example.xlsx
 ```
 
-In this case, `example.config.json` is also auto-loaded, although you can specify `*.config.json` directly in `--config`.
+In this case, `example.config.json` is also auto-loaded, although you can specify `*.config.json` directly in `--config`. If the file doesn't exist, it will be auto-generated on Save.
 
 ## Example of `example.config.json`
 
