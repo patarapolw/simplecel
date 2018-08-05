@@ -7,7 +7,7 @@ from . import app
 
 @click.command()
 @click.argument('filename')
-@click.option('--config', default='', help='Please input the path to CONNFIG json, as defined in pyhandsontable.')
+@click.option('--config', default='', help='Please input the path to CONFIG yaml, as defined in pyhandsontable.')
 @click.option('--host', default='localhost')
 @click.option('--port', default=7500)
 @click.option('--debug', is_flag=True)

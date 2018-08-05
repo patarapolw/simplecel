@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "simplecel"
-version = "0.2.0.2"
+version = "0.2.1"
 description = "Offline Excel-like app with no formula conversion, but with image/markdown/HTML support."
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
 license = "MIT"
@@ -15,6 +15,7 @@ python = ">=3"
 pyexcel = "^0.5.8"
 flask = "^1.0"
 click = "^6.7"
+"ruamel.yaml" = "^0.15.48"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.7"

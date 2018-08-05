@@ -29,7 +29,7 @@ $ simplecel --help
 Usage: simplecel [OPTIONS] FILENAME
 
 Options:
-  --config TEXT     Please input the path to CONFIG json, as defined in pyhandsontable.
+  --config TEXT     Please input the path to CONFIG yaml, as defined in pyhandsontable.
   --host TEXT
   --port INTEGER
   --debug
@@ -37,25 +37,36 @@ Options:
 $ simplecel example.xlsx
 ```
 
-In this case, `example.config.json` is also auto-loaded, although you can specify `*.config.json` directly in `--config`. If the file doesn't exist, it will be auto-generated on Save.
+In this case, `example.config.yaml` is also auto-loaded, although you can specify `*.config.yaml` directly in `--config`. If the file doesn't exist, it will be auto-generated on Save.
 
-## Example of `example.config.json`
+## Example of `example.config.yaml`
 
-```json
-{
-  "hanzi": {
-    "hasHeader": true,
-    "renderers": "markdownRenderer"
-  },
-  "vocab": {
-    "hasHeader": true,
-    "renderers": "markdownRenderer"
-  },
-  "sentences": {
-    "hasHeader": true,
-    "renderers": "markdownRenderer"
-  }
-}
+```yaml
+hanzi:
+  colHeaders: true
+  colWidths: [67, 197, 200, 71, 90, 106, 66, 60, 59, 200]
+  contextMenu: true
+  dropdownMenu: true
+  filters: true
+  hasHeader: true
+  manualColumnResize: true
+  manualRowResize: true
+  maxColWidth: 200
+  renderers: markdownRenderer
+  rowHeaders: true
+sentences:
+  colHeaders: true
+  colWidths: [200, 200, 200, 200, 60, 59, 200]
+  contextMenu: true
+  dropdownMenu: true
+  filters: true
+  hasHeader: true
+  manualColumnResize: true
+  manualRowResize: true
+  maxColWidth: 200
+  renderers: markdownRenderer
+  rowHeaders: true
+vocab: {hasHeader: true, renderers: markdownRenderer}
 ```
 
 Note that the `defaultConfig` are

@@ -1,7 +1,7 @@
 from flask import request, Response
 import pyexcel
 import os
-import json
+import ruamel.yaml as yaml
 from pathlib import Path
 
 try:
@@ -27,6 +27,6 @@ def save():
             dest_file_name=str(filename_path)
         )
 
-    config_path.write_text(json.dumps(content['config'], indent=2, ensure_ascii=False))
+    config_path.write_text(yaml.safe_dump(content['config'], allow_unicode=True))
 
     return Response(status=200)

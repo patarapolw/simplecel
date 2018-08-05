@@ -2,7 +2,7 @@ from flask import render_template
 
 import pyexcel
 import os
-import json
+import ruamel.yaml as yaml
 from pathlib import Path
 
 from . import app
@@ -18,11 +18,11 @@ def open_file():
 
     config_path = Path(os.environ.get('CONFIG', str(filename_path.parent)))
     if config_path.is_dir():
-        config_path = config_path.joinpath(filename_path.name).with_suffix('.config.json')
+        config_path = config_path.joinpath(filename_path.name).with_suffix('.config.yaml')
         os.environ['CONFIG'] = str(config_path)
 
     if config_path.exists():
-        config = json.loads(config_path.read_text())
+        config = yaml.safe_load(config_path.read_text())
     else:
         config = dict()
 
