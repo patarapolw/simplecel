@@ -38,7 +38,9 @@ Options:
 $ simplecel example.xlsx
 ```
 
-## Example of `filename.config.json`
+In this case, `example.config.json` is also auto-loaded, although you can specify `*.config.json` directly in `--config`.
+
+## Example of `example.config.json`
 
 ```json
 {
