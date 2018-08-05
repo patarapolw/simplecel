@@ -4,7 +4,7 @@
 [![PyPI license](https://img.shields.io/pypi/l/simplecel.svg)](https://pypi.python.org/pypi/simplecel/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/simplecel.svg)](https://pypi.python.org/pypi/simplecel/)
 
-Excel workbook with no formula conversion, but with markdown/HTML support.
+Offline Excel-like app with no formula conversion, but with image/markdown/HTML support.
 
 ## Features
 
