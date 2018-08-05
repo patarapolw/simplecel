@@ -63,17 +63,20 @@ One-stop settings for all tables are defined in `_default`.
 Note that the `defaultConfig` in the Javascript are
 
 ```javascript
-{
+let defaultConfig = {
   rowHeaders: true,
   colHeaders: true,
   manualRowResize: true,
   manualColumnResize: true,
+  // fixedRowsTop: 1,
   filters: true,
   dropdownMenu: true,
   contextMenu: true,
   maxColWidth: 200,
-  hasHeader: false
-}
+  hasHeader: false,
+  // renderers: 'markdownRenderer',
+  allowInsertCol: true
+};
 ```
 
 `renderers` can also accept something like
