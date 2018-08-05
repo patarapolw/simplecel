@@ -1,6 +1,8 @@
 const sheetNames = Object.keys(data);
 let sheetNumber = 0;
 let hot;
+
+let colHeaders;
 let innerHTML = [];
 
 sheetNames.forEach((item, index)=>{
@@ -14,7 +16,12 @@ tabArea.innerHTML = innerHTML.join('') + tabArea.innerHTML;
 Array.from(document.getElementsByClassName('tab-links')).forEach((item, index)=>{
   item.addEventListener('click', ()=>{
     if(hot !== undefined){
-      data[sheetNames[sheetNumber]] = hot.getData();
+      if(colHeaders !== undefined){
+        data[sheetNames[sheetNumber]] = [colHeaders];
+      } else {
+        data[sheetNames[sheetNumber]] = [];
+      }
+      data[sheetNames[sheetNumber]] = data[sheetNames[sheetNumber]].concat(hot.getData());
       hot.destroy();
     }
 
@@ -80,7 +87,8 @@ function loadExcelSheet() {
   Object.assign(actualConfig, config[sheetNames[sheetNumber]]);
 
   if(config[sheetNames[sheetNumber]].hasHeader){
-    actualConfig.colHeaders = data[sheetNames[sheetNumber]][0];
+    colHeaders = data[sheetNames[sheetNumber]][0];
+    actualConfig.colHeaders = colHeaders;
     actualConfig.data = data[sheetNames[sheetNumber]].slice(1);
   } else {
     actualConfig.data = data[sheetNames[sheetNumber]];
