@@ -1,3 +1,4 @@
+_default: {hasHeader: true, renderers: markdownRenderer}
 hanzi:
   colHeaders: true
   colWidths: [67, 197, 200, 71, 90, 106, 66, 60, 59, 200]
@@ -22,4 +23,3 @@ sentences:
   maxColWidth: 200
   renderers: markdownRenderer
   rowHeaders: true
-vocab: {hasHeader: true, renderers: markdownRenderer}

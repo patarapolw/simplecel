@@ -42,6 +42,7 @@ In this case, `example.config.yaml` is also auto-loaded, although you can specif
 ## Example of `example.config.yaml`
 
 ```yaml
+_default: {hasHeader: true, renderers: markdownRenderer}
 hanzi:
   colHeaders: true
   colWidths: [67, 197, 200, 71, 90, 106, 66, 60, 59, 200]
@@ -66,10 +67,11 @@ sentences:
   maxColWidth: 200
   renderers: markdownRenderer
   rowHeaders: true
-vocab: {hasHeader: true, renderers: markdownRenderer}
 ```
 
-Note that the `defaultConfig` are
+One-stop settings for all tables are defined in `_default`.
+
+Note that the `defaultConfig` in the Javascript are
 
 ```javascript
 {

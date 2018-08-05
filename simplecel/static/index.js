@@ -66,13 +66,12 @@ function loadExcelSheet() {
   Object.assign(container.style, dimension);
 
   let actualConfig = {
-    data: data[sheetNames[sheetNumber]],
     columns: []
   };
 
   Object.keys(defaultConfig).forEach((key)=>{
     if(config[sheetNames[sheetNumber]] === undefined){
-      config[sheetNames[sheetNumber]] = {};
+      config[sheetNames[sheetNumber]] = Object.assign({}, config._default || {});
     }
     if(config[sheetNames[sheetNumber]][key] === undefined){
       config[sheetNames[sheetNumber]][key] = defaultConfig[key];
