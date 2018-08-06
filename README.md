@@ -42,20 +42,21 @@ In this case, `example.config.yaml` is also auto-loaded, although you can specif
 ## Example of `example.config.yaml`
 
 ```yaml
-_default: {allowInsertCol: false, hasHeader: true, renderers: markdownRenderer}
-hanzi:
-  allowInsertCol: false
-  colHeaders: true
-  colWidths: [67, 197, 200, 71, 90, 106, 66, 60, 59, 200]
-  contextMenu: true
-  dropdownMenu: true
-  filters: true
-  hasHeader: true
-  manualColumnResize: true
-  manualRowResize: true
-  maxColWidth: 200
-  renderers: markdownRenderer
-  rowHeaders: true
+simplecel:
+  _default: {allowInsertCol: false, hasHeader: true, renderers: markdownRenderer}
+  hanzi:
+    allowInsertCol: false
+    colHeaders: true
+    colWidths: [67, 197, 200, 71, 90, 106, 66, 60, 59, 200]
+    contextMenu: true
+    dropdownMenu: true
+    filters: true
+    hasHeader: true
+    manualColumnResize: true
+    manualRowResize: true
+    maxColWidth: 200
+    renderers: markdownRenderer
+    rowHeaders: true
 ```
 
 One-stop settings for all tables are defined in `_default`.

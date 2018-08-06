@@ -22,7 +22,7 @@ def open_file():
         os.environ['CONFIG'] = str(config_path)
 
     if config_path.exists():
-        config = yaml.safe_load(config_path.read_text())
+        config = yaml.safe_load(config_path.read_text()).get('simplecel', dict())
     else:
         config = dict()
 

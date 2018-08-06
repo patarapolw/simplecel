@@ -27,6 +27,9 @@ def save():
             dest_file_name=str(filename_path)
         )
 
-    config_path.write_text(yaml.safe_dump(content['config'], allow_unicode=True))
+    config = yaml.safe_load(config_path.read_text())
+    config['simplecel'] = content['config']
+
+    config_path.write_text(yaml.safe_dump(config, allow_unicode=True))
 
     return Response(status=200)
