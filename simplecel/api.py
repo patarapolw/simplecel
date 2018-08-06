@@ -7,7 +7,10 @@ from pathlib import Path
 try:
     import pyexcel_export
 except ModuleNotFoundError:
-    pass
+    try:
+        import pyexcel_xlsxwx as pyexcel_export
+    except ModuleNotFoundError:
+        pass
 
 from . import app
 
