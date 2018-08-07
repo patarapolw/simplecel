@@ -1,5 +1,5 @@
 const markdownConverter = new showdown.Converter;
-const img_regex = /(?:(?=^)|(?=\s).|^)([^\s<>"\']+\.(?:png|jpg|jpeg|gif))/g;
+const img_regex = /(?:(?=^)|(?=\s).|^)([^\s<>"\']+\.(?:png|jpg|jpeg|gif))/gi;
 
 (function(Handsontable){
   function customRenderer(hotInstance, td, row, column, prop, value, cellProperties) {
