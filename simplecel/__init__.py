@@ -13,7 +13,7 @@ def open(filename, config, host, port, debug):
 
     if isinstance(config, dict):
         os.environ['CONFIG'] = json.dumps(config)
-    else:
+    elif config:
         os.environ['CONFIG'] = config
 
     open_browser_tab('http://{}:{}'.format(host, port))
