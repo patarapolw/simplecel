@@ -10,5 +10,7 @@ let defaultConfig = {
   maxColWidth: 200,
   hasHeader: false,
   // renderers: 'markdownRenderer',
-  allowInsertCol: true
+  allowInsertCol: true,
+  autoInsertEmptyRow: true,
+  undo: true
 };

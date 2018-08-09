@@ -11,7 +11,34 @@ const container = document.getElementById('handsontable-container');
 createTabs();
 document.getElementsByClassName('tab-links')[0].click();
 
+document.body.addEventListener('keydown', function(e){
+  e = e || window.event;
+  const key = e.which || e.keyCode;
+  const keyF = 102;
+  const keyf = 70;
+
+  if((key === keyf || key === keyF) && (e.ctrlKey || e.metaKey)){
+    e.preventDefault();
+    document.getElementById('search-bar').focus();
+  }
+});
+
+document.getElementById('search-bar').addEventListener('keyup', (e)=>{
+  readSearchBarValue(e.target.value);
+});
+
 document.getElementById('save').addEventListener('click', ()=>{
+  const filtersPlugin = hot.getPlugin('filters');
+  filtersPlugin.clearConditions();
+  filtersPlugin.filter();
+
+  if(config[sheetNames[sheetNumber]].hasHeader){
+    data[sheetNames[sheetNumber]] = [hot.getColHeader()];
+  } else {
+    data[sheetNames[sheetNumber]] = [];
+  }
+  data[sheetNames[sheetNumber]].extend(hot.getData());
+
   fetch('/api/save',{
     method: 'post',
     headers: {
@@ -33,6 +60,29 @@ window.addEventListener('resize', ()=>{
   Object.assign(document.getElementsByClassName('wtHolder')[0].style, dimension);
 });
 
+function readSearchBarValue(value){
+  let newData = [];
+  let oldData;
+
+  if(config[sheetNames[sheetNumber]].hasHeader){
+    oldData = data[sheetNames[sheetNumber]].slice(1);
+  } else {
+    oldData = data[sheetNames[sheetNumber]];
+  }
+
+  oldData.forEach((item, index)=>{
+    if(item.some(x=>{x = (x!==null)?x:''; return x.toString().indexOf(value) !== -1})){
+      newData.push(item);
+    }
+  });
+  hot.updateSettings({
+    data: newData
+  });
+
+  if(!value){
+    insertEmptyRow();
+  }
+}
 
 function createTabs(){
   let innerHTML = [];
@@ -51,7 +101,7 @@ function createTabs(){
 
 function getTrueWindowDimension(){
   return {
-    height: (window.innerHeight - document.getElementById('tab-area').offsetHeight) + 'px',
+    height: (window.innerHeight - document.getElementById('tab-area').offsetHeight - 10) + 'px',
     width: window.innerWidth + 'px'
   };
 }
@@ -78,16 +128,7 @@ function addTabListener(){
       }
 
       if(hot !== undefined){
-        const filtersPlugin = hot.getPlugin('filters');
-        filtersPlugin.clearConditions();
-        filtersPlugin.filter();
-
-        if(config[sheetNames[sheetNumber]].hasHeader){
-          data[sheetNames[sheetNumber]] = [hot.getColHeader()];
-        } else {
-          data[sheetNames[sheetNumber]] = [];
-        }
-        data[sheetNames[sheetNumber]].extend(hot.getData());
+        saveData();
         hot.destroy();
       }
 
@@ -100,6 +141,26 @@ function addTabListener(){
       item.className += ' active';
     });
   });
+}
+
+function clearFilter(){
+  document.getElementById('search-bar').value = '';
+  readSearchBarValue('');
+
+  const filtersPlugin = hot.getPlugin('filters');
+  filtersPlugin.clearConditions();
+  filtersPlugin.filter();
+}
+
+function saveData(){
+  clearFilter();
+
+  if(config[sheetNames[sheetNumber]].hasHeader){
+    data[sheetNames[sheetNumber]] = [hot.getColHeader()];
+  } else {
+    data[sheetNames[sheetNumber]] = [];
+  }
+  data[sheetNames[sheetNumber]].extend(hot.getData());
 }
 
 function loadExcelSheet(isNew) {
@@ -191,6 +252,18 @@ function loadExcelSheet(isNew) {
     }
   });
 
+  if(actualConfig.autoInsertEmptyRow){
+    insertEmptyRow();
+
+    hot.updateSettings({
+      afterChange: (changes, source)=>{
+        if(!document.getElementById('search-bar')){
+          insertEmptyRow();
+        }
+      }
+    })
+  }
+
   if(actualConfig.allowInsertCol){
     setTimeout(()=>{
       let menuItems = hot.getPlugin('contextMenu').menu.menuItems;
@@ -240,6 +313,16 @@ function loadExcelSheet(isNew) {
   }
 }
 
+function insertEmptyRow(){
+  if(hot.getDataAtRow(hot.countRows() - 1).some(x=>x)){
+    const newData = hot.getData();
+    newData.push([]);
+    hot.updateSettings({
+      data: newData
+    });
+  }
+}
+
 function insertColumn(index, actualConfig, hotInstance){
   if(typeof renderers === 'string'){
     actualConfig.columns.splice(index, 0, {
@@ -249,21 +332,26 @@ function insertColumn(index, actualConfig, hotInstance){
     actualConfig.columns.splice(index, 0, {});
   }
 
-  if(Array.isArray(actualConfig.colHeaders)){
-    actualConfig.colHeaders.splice(index, 0,
-      characterRange('A', actualConfig.colHeaders.length + 1)[index]);
-  }
-
   actualConfig.colWidths.splice(index, 0, null);
 
-  actualConfig.data.forEach((item)=>{
+  data[sheetNames[sheetNumber]].forEach((item)=>{
     item.splice(index, 0, '');
   });
 
+  saveData();
+
+  if(actualConfig.hasHeader){
+    actualConfig.colHeaders.splice(index, 0,
+      characterRange('A', actualConfig.colHeaders.length + 1)[index]);
+    actualConfig.data = data[sheetNames[sheetNumber]].slice(1);
+  } else {
+    actualConfig.data = data[sheetNames[sheetNumber]];
+  }
+
   hotInstance.updateSettings({
     columns: actualConfig.columns,
-    colHeaders: actualConfig.colHeaders,
     colWidths: actualConfig.colWidths,
+    colHeaders: actualConfig.colHeaders,
     data: actualConfig.data
   });
 }
@@ -275,20 +363,25 @@ function removeColumn(index, actualConfig, hotInstance){
     actualConfig.columns.splice(index, 1);
   }
 
-  if(Array.isArray(actualConfig.colHeaders)){
-    actualConfig.colHeaders.splice(index, 1);
-  }
-
   actualConfig.colWidths.splice(index, 1);
 
-  actualConfig.data.forEach((item)=>{
+  data[sheetNames[sheetNumber]].forEach((item)=>{
     item.splice(index, 1);
   });
 
+  saveData();
+
+  if(actualConfig.hasHeader){
+    actualConfig.colHeaders = data[sheetNames[sheetNumber]][0];
+    actualConfig.data = data[sheetNames[sheetNumber]].slice(1);
+  } else {
+    actualConfig.data = data[sheetNames[sheetNumber]];
+  }
+
   hotInstance.updateSettings({
     columns: actualConfig.columns,
-    colHeaders: actualConfig.colHeaders,
     colWidths: actualConfig.colWidths,
+    colHeaders: actualConfig.colHeaders,
     data: actualConfig.data
   });
 }
