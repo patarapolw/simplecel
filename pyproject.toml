@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "simplecel"
-version = "0.2.10.1"
+version = "0.2.10.3"
 description = "Offline Excel-like app with no formula conversion, but with image/markdown/HTML support."
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
 license = "MIT"

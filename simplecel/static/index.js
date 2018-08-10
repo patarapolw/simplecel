@@ -71,7 +71,7 @@ function readSearchBarValue(value){
   }
 
   oldData.forEach((item, index)=>{
-    if(item.some(x=>{x = (x!==null)?x:''; return x.toString().indexOf(value) !== -1})){
+    if(item.some(x=>{x = (x!==null)?x:''; return x.toString().toLowerCase().indexOf(value.toLowerCase()) !== -1})){
       newData.push(item);
     }
   });
@@ -257,7 +257,7 @@ function loadExcelSheet(isNew) {
 
     hot.updateSettings({
       afterChange: (changes, source)=>{
-        if(!document.getElementById('search-bar')){
+        if(!document.getElementById('search-bar').value){
           insertEmptyRow();
         }
       }
