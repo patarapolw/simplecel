@@ -28,29 +28,30 @@ document.getElementById('search-bar').addEventListener('keyup', (e)=>{
 });
 
 document.getElementById('save').addEventListener('click', ()=>{
-  const filtersPlugin = hot.getPlugin('filters');
-  filtersPlugin.clearConditions();
-  filtersPlugin.filter();
+  // clearFilter();
+  if(!document.getElementById('search-bar').value){
+    if(config[sheetNames[sheetNumber]].hasHeader){
+      data[sheetNames[sheetNumber]] = [hot.getColHeader()];
+    } else {
+      data[sheetNames[sheetNumber]] = [];
+    }
+    data[sheetNames[sheetNumber]].extend(hot.getData());
 
-  if(config[sheetNames[sheetNumber]].hasHeader){
-    data[sheetNames[sheetNumber]] = [hot.getColHeader()];
-  } else {
-    data[sheetNames[sheetNumber]] = [];
-  }
-  data[sheetNames[sheetNumber]].extend(hot.getData());
-
-  fetch('/api/save',{
-    method: 'post',
-    headers: {
-      "Content-Type": "application/json; charset=utf-8"
-    },
-    body: JSON.stringify({
-      config: config,
-      data: data
+    fetch('/api/save',{
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({
+        config: config,
+        data: data
+      })
+    }).then((resp)=>{
+      alert('Saved!');
     })
-  }).then((resp)=>{
-    alert('Saved!');
-  })
+  } else {
+    alert('Cannot save in filtered mode.');
+  }
 });
 
 window.addEventListener('resize', ()=>{
